@@ -18,7 +18,7 @@ import {
   // XHRConnection,
   XHRBackend,
   RequestOptions,
-  ResponseTypes,
+  ResponseType,
   ResponseOptions,
   ResponseOptionsArgs,
   RequestOptionsArgs,
@@ -26,10 +26,10 @@ import {
   BaseRequestOptions,
   Request,
   Response,
-  MockBackend,
-  ReadyStates,
+  //MockBackend,
+  ReadyState,
   BrowserXhr,
-  RequestMethods
+  RequestMethod
 } from 'angular2/http';
 
 import {ObservableWrapper} from 'angular2/src/facade/async';
@@ -58,12 +58,12 @@ class NodeConnection implements Connection {
    * `XMLHttpRequest`.
    */
   response: any;  // TODO: Make generic of <Response>;
-  readyState: ReadyStates;
+  readyState: ReadyState;
   constructor(req: Request, browserXHR: BrowserXhr, baseResponseOptions?: ResponseOptions) {
     this.request = req;
     this.response = new Observable(responseObserver => {
       let _xhr: any = browserXHR.build();
-      _xhr.open(RequestMethods[req.method].toUpperCase(), req.url);
+      _xhr.open(RequestMethod[req.method].toUpperCase(), req.url);
       // load event handler
       let onLoad = () => {
         // responseText is the old-school way of retrieving response (supported by IE8 & 9)
@@ -90,7 +90,7 @@ class NodeConnection implements Connection {
       };
       // error event handler
       let onError = (err) => {
-        var responseOptions = new ResponseOptions({body: err, type: ResponseTypes.Error});
+        var responseOptions = new ResponseOptions({body: err, type: ResponseType.Error});
         if (isPresent(baseResponseOptions)) {
           responseOptions = baseResponseOptions.merge(responseOptions);
         }

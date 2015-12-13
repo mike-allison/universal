@@ -3,6 +3,7 @@ import {Injectable, Inject, provide} from 'angular2/angular2';
 import {LocationStrategy} from 'angular2/router';
 import {MockLocationStrategy} from 'angular2/src/mock/mock_location_strategy';
 import {BASE_URL} from '../http/server_http';
+import {normalizeQueryParams} from 'angular2/src/router/location_strategy'
 
 // TODO: see https://github.com/angular/universal/issues/60#issuecomment-130463593
 class MockServerHistory implements History {
@@ -75,6 +76,11 @@ export class ServerLocationStrategy extends LocationStrategy {
   }
 
   prepareExternalUrl(internal: string): string { return internal; }
+
+  replaceState(state: any, title: string, url: string, queryParams: string) {
+    var externalUrl = this.prepareExternalUrl(url + normalizeQueryParams(queryParams));
+    this._history.replaceState(state, title, externalUrl);
+  }
 }
 
 export const SERVER_LOCATION_PROVIDERS: Array<any> = [

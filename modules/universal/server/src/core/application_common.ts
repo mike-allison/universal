@@ -1,59 +1,40 @@
 import {
-  Injector,
-  OpaqueToken,
   provide,
   Provider,
   Type,
   FORM_PROVIDERS
 } from 'angular2/angular2';
-import {ComponentRef} from 'angular2/src/core/linker/dynamic_component_loader'
 import {
-  EventManager,
-  DomEventsPlugin,
-  EVENT_MANAGER_PLUGINS
-} from 'angular2/src/core/render/dom/events/event_manager';
-import {
-  SharedStylesHost,
-  DomSharedStylesHost
-} from 'angular2/src/core/render/dom/shared_styles_host';
-import {Parse5DomAdapter} from 'angular2/src/core/dom/parse5_adapter';
-
-import {
-  DomRenderer,
-  DomRenderer_,
-  Renderer,
-  DOCUMENT
-} from 'angular2/src/core/render/render';
-import {KeyEventsPlugin} from 'angular2/src/core/render/dom/events/key_events';
-import {HammerGesturesPlugin} from 'angular2/src/core/render/dom/events/hammer_gestures';
-
-import {
-  NumberWrapper,
-  isBlank,
-  isPresent,
-  assertionsEnabled,
-  print,
-  stringify
-} from 'angular2/src/facade/lang';
+    DOCUMENT,
+    DOM,
+    DomEventsPlugin,
+    DomRenderer,
+    DomSharedStylesHost,
+    EventManager,
+    EVENT_MANAGER_PLUGINS,
+    SharedStylesHost
+} from 'angular2/platform/common_dom';
 import {Promise} from 'angular2/src/facade/async';
-
-import {XHR} from 'angular2/src/compiler/xhr';
-import {XHRImpl} from 'angular2/src/compiler/xhr_impl';
-import {DOM} from 'angular2/src/core/dom/dom_adapter';
+import {Parse5DomAdapter} from 'angular2/platform/server';
+import {
+    Renderer,
+    ComponentRef,
+    DirectiveResolver
+} from 'angular2/core';
+import {KeyEventsPlugin} from 'angular2/src/platform/dom/events/key_events';
+import {HammerGesturesPlugin} from 'angular2/src/platform/dom/events/hammer_gestures';
+import {isBlank, isPresent} from 'angular2/src/facade/lang';
+import {XHR} from 'angular2/compiler';
+import {XHRImpl} from 'angular2/src/platform/browser/xhr_impl';
 import {Testability} from 'angular2/src/core/testability/testability';
-import {AnimationBuilder} from 'angular2/src/animate/animation_builder';
-import {BrowserDetails} from 'angular2/src/animate/browser_details';
-import {DirectiveResolver} from 'angular2/src/core/linker/directive_resolver';
-
+import {AnimationBuilder, BrowserDetails} from 'angular2/animate';
 import {ServerDomRenderer_} from '../render/server_dom_renderer';
-
 import {EXCEPTION_PROVIDERS} from './platform_providers';
 import {
   platformCommon,
   PlatformRef,
   applicationCommonProviders
 } from './application_ref';
-
 import {createServerDocument} from '../render';
 
 
@@ -63,14 +44,10 @@ export function platform(providers?: Array<Type | Provider | any[]>): PlatformRe
   });
 }
 
-
-
 export function applicationServerDomProviders(appComponentType): Array<Type | Provider | any[]> {
   if (isBlank(DOM)) {
     throw 'Must set a root DOM adapter first.';
   }
-
-
 
   return [
     provide(DOCUMENT, {

@@ -1,10 +1,10 @@
 // dom closure
-import {Parse5DomAdapter} from 'angular2/src/core/dom/parse5_adapter';
+import {Parse5DomAdapter} from 'angular2/platform/server';
 Parse5DomAdapter.makeCurrent();
 
-import {ListWrapper, MapWrapper} from 'angular2/src/facade/collection';
-import {DOM} from 'angular2/src/core/dom/dom_adapter';
-import {isPresent, isString, StringWrapper} from 'angular2/src/facade/lang';
+import {ListWrapper} from 'angular2/src/facade/collection';
+import {DOM} from 'angular2/src/platform/dom/dom_adapter';
+import {isString} from 'angular2/src/facade/lang';
 
 var _singleTagWhitelist = ['br', 'hr', 'input'];
 export function stringifyElement(el): string {

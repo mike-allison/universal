@@ -1,23 +1,11 @@
 import '../server_patch';
 import * as fs from 'fs';
-import {selectorRegExpFactory, simpleTemplate} from '../helper';
-
-
+import {selectorRegExpFactory} from '../helper';
 import {
-  renderToString,
   renderToStringWithPreboot,
   selectorResolver
 } from '../render';
-
-import {
-  prebootScript,
-  angularScript,
-  bootstrapButton,
-  bootstrapFunction,
-  bootstrapApp,
-  buildClientScripts
-} from '../ng_scripts';
-
+import {buildClientScripts} from '../ng_scripts';
 
 export interface engineOptions {
   App: Function;
@@ -131,7 +119,7 @@ export function ng2engine(filePath: string, options: engineOptions, done: Functi
   } catch (e) {
     done(e);
   }
-};
+}
 
 export const ng2engineWithPreboot = ng2engine;
 

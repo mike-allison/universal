@@ -1,52 +1,28 @@
 import {
   Injector,
   provide,
-  OpaqueToken,
   Provider,
   Type,
   ComponentRef,
   PlatformRef,
   ApplicationRef,
+  PLATFORM_COMMON_PROVIDERS
 } from 'angular2/angular2';
-
 import {NgZone} from 'angular2/src/core/zone/ng_zone';
-
 import {
   APP_COMPONENT_REF_PROMISE,
   APP_COMPONENT,
   APP_ID_RANDOM_PROVIDER
 } from 'angular2/src/core/application_tokens';
-
 import {ExceptionHandler} from 'angular2/src/facade/exceptions';
-import {DOM} from 'angular2/src/core/dom/dom_adapter';
+import {DOM} from 'angular2/src/platform/dom/dom_adapter';
 import {internalView} from 'angular2/src/core/linker/view_ref';
-import {
-  Promise,
-  PromiseWrapper,
-  PromiseCompleter
-} from 'angular2/src/facade/async';
+import {Promise,PromiseWrapper} from 'angular2/src/facade/async';
 import {ListWrapper} from 'angular2/src/facade/collection';
-import {
-  NumberWrapper,
-  isBlank,
-  isPresent,
-  assertionsEnabled,
-  print,
-  stringify
-} from 'angular2/src/facade/lang';
-
+import {isBlank, isPresent} from 'angular2/src/facade/lang';
 import {Reflector, reflector} from 'angular2/src/core/reflection/reflection';
 import {TestabilityRegistry, Testability} from 'angular2/src/core/testability/testability';
-
-import {platformProviders, createNgZone} from 'angular2/src/core/application_ref';
-
-export {
-  PlatformRef,
-  createNgZone,
-  platformProviders
-}
-
-
+import {createNgZone} from 'angular2/src/core/application_ref';
 import {Compiler, Compiler_} from 'angular2/src/core/linker/compiler';
 import {AppViewPool, APP_VIEW_POOL_CAPACITY} from 'angular2/src/core/linker/view_pool';
 import {AppViewManager, AppViewManager_} from 'angular2/src/core/linker/view_manager';
@@ -59,13 +35,18 @@ import {DirectiveResolver} from 'angular2/src/core/linker/directive_resolver';
 import {PipeResolver} from 'angular2/src/core/linker/pipe_resolver';
 import {DynamicComponentLoader, DynamicComponentLoader_} from "angular2/src/core/linker/dynamic_component_loader";
 import {COMMON_DIRECTIVES, COMMON_PIPES} from "angular2/common";
-
 import {
   IterableDiffers,
   defaultIterableDiffers,
   KeyValueDiffers,
   defaultKeyValueDiffers
 } from 'angular2/src/core/change_detection/change_detection';
+
+export {
+    PlatformRef,
+    createNgZone,
+    PLATFORM_COMMON_PROVIDERS
+}
 
 export function applicationCommonProviders(): Array<Type | Provider | any[]> {
   return [
@@ -136,7 +117,7 @@ export function platformCommon(providers?: Array<Type | Provider | any[]>, initi
   }
 
   if (isBlank(providers)) {
-    providers = platformProviders();
+    providers = [ PLATFORM_COMMON_PROVIDERS ];
   }
   _platform = new PlatformRef_(Injector.resolveAndCreate(providers), () => { _platform = null; });
   return _platform;

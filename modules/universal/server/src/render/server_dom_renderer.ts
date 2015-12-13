@@ -3,18 +3,13 @@ import {
   Inject,
   Injectable
 } from 'angular2/angular2';
-
-import {
-  Renderer,
-  DomRenderer,
-  DomRenderer_,
-  DOCUMENT,
-  RenderElementRef
-} from 'angular2/src/core/render/render';
+import {Renderer, RenderElementRef} from 'angular2/src/core/render/api';
+import {DomRenderer, DomRenderer_} from 'angular2/src/platform/dom/dom_renderer';
+import {DOCUMENT} from 'angular2/platform/common_dom';
 import {AnimationBuilder} from 'angular2/src/animate/animation_builder';
-import {EventManager} from 'angular2/src/core/render/dom/events/event_manager';
-import {DomSharedStylesHost} from 'angular2/src/core/render/dom/shared_styles_host';
-import {DOM} from 'angular2/src/core/dom/dom_adapter';
+import {EventManager} from 'angular2/src/platform/dom/events/event_manager';
+import {DomSharedStylesHost} from 'angular2/src/platform/dom/shared_styles_host';
+import {DOM} from 'angular2/src/platform/dom/dom_adapter';
 
 function resolveInternalDomView(viewRef) {
   return viewRef;

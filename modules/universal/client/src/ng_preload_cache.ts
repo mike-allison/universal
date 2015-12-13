@@ -10,16 +10,12 @@ import {
 import {ObservableWrapper} from 'angular2/src/facade/async';
 import {
   isPresent,
-  isBlank,
   CONST_EXPR
 } from 'angular2/src/facade/lang';
-
 import {
   provide,
   OpaqueToken,
   Injectable,
-  Optional,
-  Inject,
   EventEmitter,
   Observable
 } from 'angular2/angular2';

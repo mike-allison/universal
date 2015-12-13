@@ -34,6 +34,7 @@
     "server/src/render/server_dom_renderer.ts",
     "server/src/ng_scripts.ts",
     "server/src/helper.ts",
+    "server/src/ng_preboot.ts",
     "server/src/render.ts",
     "server/src/server_patch.ts",
     "server/src/stringifyElement.ts",

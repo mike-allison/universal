@@ -7,5 +7,5 @@ import 'reflect-metadata';
 import 'zone.js/dist/zone-microtask';
 
 // dom closure
-import {Parse5DomAdapter} from 'angular2/src/core/dom/parse5_adapter';
+import {Parse5DomAdapter} from 'angular2/platform/server';
 Parse5DomAdapter.makeCurrent();

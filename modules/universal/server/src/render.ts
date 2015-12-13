@@ -1,40 +1,15 @@
 import {bootstrap} from './core/application';
-// import {Promise} from 'angular2/src/facade/async';
-import {SERVER_DOM_RENDERER_PROVIDERS} from './render/server_dom_renderer';
-
-import {
-  selectorRegExpFactory,
-  arrayFlattenTree
-} from './helper';
+import {arrayFlattenTree} from './helper';
 import {stringifyElement} from './stringifyElement';
-
-
-import {PRIME_CACHE} from './http/server_http';
-import {
-  prebootConfigDefault,
-  getPrebootCSS,
-  createPrebootHTML
-} from './ng_preboot';
-
+import {prebootConfigDefault, createPrebootHTML} from './ng_preboot';
 import {getClientCode} from 'preboot';
-
-
 import {isBlank, isPresent} from 'angular2/src/facade/lang';
-import {DOM} from 'angular2/src/core/dom/dom_adapter';
-
-
+import {DOM} from 'angular2/src/platform/dom/dom_adapter';
+import {DOCUMENT} from 'angular2/platform/common_dom';
+import {SharedStylesHost} from 'angular2/src/platform/dom/shared_styles_host';
+import {Promise} from 'angular2/src/facade/async';
+import {Http} from 'angular2/http';
 import {
-  DOCUMENT
-} from 'angular2/src/core/render/render';
-import {APP_COMPONENT} from 'angular2/src/core/application_tokens';
-import {SharedStylesHost} from 'angular2/src/core/render/dom/shared_styles_host';
-
-import {
-  Http
-} from 'angular2/http';
-
-import {
-  provide,
   NgZone,
   DirectiveResolver,
   ComponentRef
@@ -65,11 +40,10 @@ export function serializeApplication(element: any, styles: string[], cache: any)
   let serializedCmp: string = stringifyElement(element);
 
   // serialize App Data
-  let serializedData: string = !cache ? '' : ''+
-    '<script>'+
-    'window.' + 'ngPreloadCache' +' = '+  JSON.stringify(cache, null, 2) +
-    '</script>'
-  '';
+  let serializedData: string = !cache ? '' :
+    `<script>
+      window.ngPreloadCache = ${JSON.stringify(cache, null, 2)};
+    </script>`;
 
   return serializedStyleHosts + serializedCmp + serializedData;
 }
